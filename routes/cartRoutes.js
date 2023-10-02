@@ -8,6 +8,7 @@ const createCart = db.prepare("INSERT INTO cart (shipping, confirmation) VALUES 
 const getCart = db.prepare('SELECT * FROM cart WHERE id = ?')
 const getCartItems = db.prepare(`SELECT * from cart_item where cart_id = ?`);
 const deleteCart = db.prepare("DELETE from cart where id = ?");
+const deleteCartItems = db.prepare("DELETE from cart_item where cart_id = ?")
 
 cartApp.get("/:id", (req, res)=> {
     console.log("CART GET: ", req.url, req.params, req.body);
@@ -59,14 +60,16 @@ cartApp.post("/", (req, res) => {
 });
 
 
-cartApp.delete('/:cartId/checkout', async (req, res)=> {
+cartApp.delete('/:cartId/checkout', (req, res)=> {
     console.log("CART DELETE: ", req.url, req.params, req.body);
+    const cartId = req.params.cartId;
     try {
-        deleteCart.run(req.params.cartId)
+        deleteCartItems.run(cartId)
+        deleteCart.run(cartId)
     
         res.status(204).send();
     } catch(err) {
-        console.error(`Error deleting cart with id: ${req.params.cartId} : `, err.message);
+        console.error(`Error deleting cart with id: ${cartId} : `, err.message);
         res.status(500).json({error: "Internal Server Error"});
     }
 })
