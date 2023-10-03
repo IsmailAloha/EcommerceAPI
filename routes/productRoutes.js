@@ -2,8 +2,6 @@ const express = require("express");
 const productApp = express();
 const db = require("../db/database");
 
-productApp.use(express.urlencoded());
-
 const getProducts = db.prepare("SELECT * FROM products");
 
 productApp.get("/", (req, res) => {

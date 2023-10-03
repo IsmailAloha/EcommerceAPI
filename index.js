@@ -1,7 +1,8 @@
 const express = require("express");
+const bodyParser = require("body-parser")
 const app = express();
 
-app.use(express.urlencoded());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Import the database module
 const db = require("./db/database");
@@ -18,6 +19,14 @@ app.use("/btriangle/api/item", cartItemRoutes);
 
 // Close the database when you're done (important)
 const port = 8000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+process.on('SIGINT', ()=> {
+  server.close(()=>{
+    db.close(()=> {
+      process.exit(0);
+    });
+  });
+})

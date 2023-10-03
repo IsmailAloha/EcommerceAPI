@@ -2,8 +2,6 @@ const express = require("express");
 const itemApp = express();
 const db = require("../db/database");
 
-itemApp.use(express.urlencoded());
-
 const insertItem = db.prepare('insert into cart_item (product, quantity, price, cart_id) values (?, ?, ?, ?)');
 const getItem = db.prepare("SELECT * FROM cart_item where id = ?")
 const updatedItem = db.prepare("UPDATE cart_item set quantity = ? WHERE id = ?")

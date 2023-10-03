@@ -6,16 +6,4 @@ const db = new Database("./ecommerce.db", {
   fileMustExist: true
 });
 
-// Close the database when done
-process.on("SIGINT", () => {
-  db.close((err) => {
-    if (err) {
-      console.error("Error closing database:", err.message);
-    } else {
-      console.log("Database closed.");
-    }
-    process.exit(0);
-  });
-});
-
 module.exports = db;

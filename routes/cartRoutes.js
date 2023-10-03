@@ -2,8 +2,6 @@ const express = require("express");
 const cartApp = express();
 const db = require("../db/database");
 
-cartApp.use(express.urlencoded());
-
 const createCart = db.prepare("INSERT INTO cart (shipping, confirmation) VALUES (?, ?)")
 const getCart = db.prepare('SELECT * FROM cart WHERE id = ?')
 const getCartItems = db.prepare(`SELECT * from cart_item where cart_id = ?`);
