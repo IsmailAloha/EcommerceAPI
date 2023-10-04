@@ -1,6 +1,6 @@
-### Simple Ecommerce API
+# Simple Ecommerce API
 
-Steps to Run:
+### Steps to Run:
 1. Clone the repository.
 2. Download and Install Node.js from [here](https://nodejs.dev/en/download/)
 3. Open the terminal.
